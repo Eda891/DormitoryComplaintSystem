@@ -1,0 +1,5 @@
+# creating the area   python -m venv venv
+# opening the area   venv\Scripts\activate
+# starting the project   vicorn main:app --reload
+# upload everything to git with   git add .
+# to close the virtual project deactivate 
