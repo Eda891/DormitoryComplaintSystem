@@ -3,3 +3,7 @@
 # starting the project   vicorn main:app --reload
 # upload everything to git with   git add .
 # to close the virtual project deactivate 
+
+
+#changes to staged changes with +
+#write the message and press commit
