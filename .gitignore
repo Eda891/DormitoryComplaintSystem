@@ -1,1 +1,16 @@
-venv/ 
+# Virtual environment
+venv/
+env/
+__pycache__/
+*.pyc
+
+# Database
+*.db
+*.sqlite3
+
+# IDE
+.vscode/
+.idea/
+
+# Environment variables
+.env

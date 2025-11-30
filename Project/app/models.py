@@ -10,9 +10,10 @@ class User(Base):
     studentİd = Column(Integer,unique=True,nullable=False,index=True)
     email = Column(String, unique=True,index=True, nullable=False)
     phone=Column(String,unique=True)
-    roomNum=Column(Integer,nullable=False)
+    roomNum=Column(String,nullable=False)
     password_hash = Column(String,nullable=False)
     is_active=Column(Boolean,default=True)
+    is_admin = Column(Boolean, default=False)
     registered_at = Column(DateTime,default=datetime.now) 
     
     complaints = relationship("Complaint", back_populates="student")
