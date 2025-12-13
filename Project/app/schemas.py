@@ -64,9 +64,16 @@ class RatingCreate(BaseModel):
        comment: Optional[str]
        created_at: datetime
        complaint_id: int
+
+class RatingResponse(BaseModel):
+    id: int
+    score: int
+    comment: Optional[str]
+    created_at: datetime
+    complaint_id: int
        
-       class Config:
-              from_attributes = True
+class Config:
+        from_attributes = True
 
 
                    

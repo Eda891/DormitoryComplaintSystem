@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List
-from ..dependencies import get_db, get_current_admin
-from ..models import Category,User
-from ..schemas import CategoryCreate, CategoryResponse
+from dependencies import get_db, get_current_admin
+from models import Category,User
+from schemas import CategoryCreate, CategoryResponse
 
 router = APIRouter()
 

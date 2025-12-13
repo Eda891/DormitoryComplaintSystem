@@ -1,6 +1,9 @@
 from fastapi import FastAPI
 from routers import auth, complaints, categories, admin
+from database import create_db_tables
 app = FastAPI(title="Dormitory Complaint System")
+
+create_db_tables()
 
 app.include_router(auth.router,      prefix="/auth",      tags=["auth"])
 app.include_router(complaints.router,prefix="/complaints",tags=["complaints"])

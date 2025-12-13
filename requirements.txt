@@ -7,3 +7,14 @@
 
 #changes to staged changes with +
 #write the message and press commit
+
+# Runtime dependencies (example for a FastAPI project)
+fastapi
+uvicorn[standard]
+python-dotenv
+
+# Optional / dev
+pytest
+black
+isort
+# ...existing code...

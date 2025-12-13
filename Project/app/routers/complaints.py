@@ -2,9 +2,9 @@ from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from sqlalchemy.orm import Session
 from typing import List
 import os
-from ..dependencies import get_db, get_current_user
-from ..models import Complaint, Rating, User
-from ..schemas import ComplaintCreate, ComplaintResponse, RatingCreate, RatingResponse
+from dependencies import get_db, get_current_user
+from models import Complaint, Rating, User
+from schemas import ComplaintCreate, ComplaintResponse, RatingCreate, RatingResponse
 router = APIRouter()
 
 # Submit complaint

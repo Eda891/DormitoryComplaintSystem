@@ -2,9 +2,9 @@ from typing import Optional
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
-from .database import SessionLocal
-from .models import User
-from .schemas import Token
+from database import SessionLocal
+from models import User
+from schemas import Token
 from jose import JWTError, jwt
 from datetime import datetime, timedelta, timezone
 
@@ -22,7 +22,7 @@ def get_db():
     finally:
         db.close()
 
-def create_acces_token(data:dict,expires_delta:Optional[timedelta]=None):
+def create_access_token(data:dict,expires_delta:Optional[timedelta]=None):
     to_encode=data.copy()
     if expires_delta:
         expire=datetime.now(timezone.utc)+expires_delta
