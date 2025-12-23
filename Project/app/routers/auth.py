@@ -10,13 +10,13 @@ router = APIRouter()
 
 @router.post("/register",response_model=UserResponse)
 def register(user:UserCreate,db:Session=Depends(get_db)):
-    db_user=db.query(User).filter(User.userName==user.userName).first()
+    db_user=db.query(User).filter(User.username==user.username).first()
     if db_user:
             raise HTTPException(status_code=400,detail="Username already registered")
     hashed_password=get_hashed_password(user.password_hash)
     new_user=User(
-        studentİd=user.studentİd,
-        userName=user.userName,
+        student_id=user.student_id,
+        username=user.username,
         email=user.email,
         phone=user.phone,
         roomNum=user.roomNum,
@@ -28,7 +28,7 @@ def register(user:UserCreate,db:Session=Depends(get_db)):
     return new_user
 @router.post("/login", response_model=Token)
 def login(form_data:OAuth2PasswordRequestForm=Depends(),db:Session=Depends(get_db)):
-    user=db.query(User).filter(User.userName==form_data.username).first()
+    user=db.query(User).filter(User.username==form_data.username).first()
     if not user or not check_password(form_data.password, user.password_hash):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -37,6 +37,6 @@ def login(form_data:OAuth2PasswordRequestForm=Depends(),db:Session=Depends(get_d
         )
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
-        data={"sub": user.userName}, expires_delta=access_token_expires
+        data={"sub": user.username}, expires_delta=access_token_expires
     )
     return {"access_token": access_token, "token_type": "bearer"}

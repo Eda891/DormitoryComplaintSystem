@@ -3,8 +3,8 @@ from datetime import datetime
 from typing import Optional
 # User Schemas
 class UserCreate(BaseModel):
-          studentİd: str
-          userName:str
+          student_id: str
+          username:str
           email:EmailStr
           phone:Optional[str] = None
           roomNum:str
@@ -13,9 +13,10 @@ class UserResponse(BaseModel):
         id:int
         student_id:str
         email:EmailStr
-        phone:Optional[str]
+        phone:Optional[str]=None
         roomNum:str
-        submissionDate:datetime
+        is_admin: bool = False
+        registered_at:datetime
 
         class Config:
                 from_attributes=True
@@ -35,7 +36,7 @@ class ComplaintResponse(BaseModel):
         image_url: Optional[str]
         status:str
         submissionDate:datetime
-        resolved_at: datetime
+        resolved_at: Optional[datetime] = None
         category_id: int
         student_id: int
         
@@ -59,15 +60,15 @@ class CategoryResponse(BaseModel):
 
 # Rating Schemas
 class RatingCreate(BaseModel):
-       id: int
+       #id: int
        rating:int
        comment: Optional[str]
-       created_at: datetime
+       #created_at: datetime
        complaint_id: int
 
 class RatingResponse(BaseModel):
     id: int
-    score: int
+    rating: int
     comment: Optional[str]
     created_at: datetime
     complaint_id: int

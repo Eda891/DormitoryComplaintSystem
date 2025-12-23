@@ -9,7 +9,7 @@ app.include_router(auth.router,      prefix="/auth",      tags=["auth"])
 app.include_router(complaints.router,prefix="/complaints",tags=["complaints"])
 app.include_router(categories.router, prefix="/categories", tags=["categories"])
 app.include_router(admin.router,     prefix="/admin",     tags=["admin"])
-
+#app.include_router(create_db_tables)
 @app.get("/")
 def home():
-    return {"message": "Dorm Complaint System Backend Running ✅"}
+    return {"message": "Dorm Complaint System Backend Running. Add /docs to the tab"}

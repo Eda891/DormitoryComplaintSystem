@@ -15,7 +15,7 @@ def submit_complaint(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
-    new_complaint=Complaint(**complaint.dict(), studentİd=current_user.id)
+    new_complaint=Complaint(**complaint.dict(), student_id=current_user.id)
     if photo:
         # Save photo (simple file save; use S3 in production)
         photo_path=f"uploads/{photo.filename}"
@@ -36,6 +36,20 @@ def get_my_complaints(
 ):
     return db.query(Complaint).filter(Complaint.student_id==current_user.id).all()
 
+# Get one specific complaint by ID
+@router.get("/{complaint_id}", response_model=ComplaintResponse)
+def get_complaint(
+    complaint_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    complaint = db.query(Complaint).filter(Complaint.id == complaint_id).first()
+    if not complaint:
+        raise HTTPException(status_code=404, detail="Complaint not found")
+    if complaint.student_id != current_user.id and not current_user.is_admin:
+        raise HTTPException(status_code=403, detail="Not authorized")
+    return complaint
+
 #Rate a resolved complaint
 @router.post("/{complaint_id}/rate",response_model=RatingResponse)
 def rate_complaint(
@@ -44,7 +58,7 @@ def rate_complaint(
     db: Session=Depends(get_db),
     current_user: User=Depends(get_current_user)
 ):
-    complaint=db.query(Complaint).filter(Complaint.id==complaint_id).all()
+    complaint=db.query(Complaint).filter(Complaint.id==complaint_id).first()
     if not complaint or complaint.student_id !=current_user.id:
         raise HTTPException(status_code=404, detail="Complaint not found")
     if complaint.status != "resolved":

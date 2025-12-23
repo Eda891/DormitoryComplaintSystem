@@ -6,8 +6,8 @@ from database import Base
 class User(Base):
     __tablename__ = "users"
     id = Column(Integer, primary_key=True, index=True)
-    userName = Column(String, unique=True,nullable=False,index=True)
-    studentİd = Column(Integer,unique=True,nullable=False,index=True)
+    username = Column(String, unique=True,nullable=False,index=True)
+    student_id = Column(String,unique=True,nullable=False,index=True)
     email = Column(String, unique=True,index=True, nullable=False)
     phone=Column(String,unique=True)
     roomNum=Column(String,nullable=False)
@@ -17,7 +17,7 @@ class User(Base):
     registered_at = Column(DateTime,default=datetime.now) 
     
     complaints = relationship("Complaint", back_populates="student")
-    ratings = relationship("Rating", back_populates="student")
+    rating = relationship("Rating", back_populates="student")
 
 class Complaint(Base):
     __tablename__ = "complaints"
@@ -40,7 +40,7 @@ class Complaint(Base):
     # department=Column(String, unique=True)
     estimatedVisit=Column(DateTime,nullable=True)
 
-    student_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    student_id = Column(String, ForeignKey("users.id"), nullable=False)
     category_id = Column(Integer, ForeignKey("categories.id"), nullable=False)
 
     student = relationship("User", back_populates="complaints")
@@ -63,7 +63,7 @@ class Rating(Base):
     created_at = Column(DateTime, default=datetime.now)
 
     complaint_id = Column(Integer, ForeignKey("complaints.id"), unique=True)
-    student_id = Column(Integer, ForeignKey("users.id"))
+    student_id = Column(String, ForeignKey("users.id"))
 
     complaint = relationship("Complaint", back_populates="rating")
     student = relationship("User", back_populates="ratings")   
